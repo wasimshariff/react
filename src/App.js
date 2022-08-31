@@ -1,4 +1,5 @@
 import Expenses from "./components/expenses/expenses";
+import NewExpense from "./components/newexpense/NewExpense";
 
 function App() {
   const expenses = [
@@ -23,9 +24,12 @@ function App() {
     },
   ];
 
+  const myNewExpense = (expense) => {
+    console.log("New expense in App js " + JSON.stringify(expense));
+  };
   return (
     <div>
-      <h2>Let's get started!</h2>
+      <NewExpense myNewExpense={myNewExpense}></NewExpense>
       <Expenses items={expenses}></Expenses>
     </div>
   );
