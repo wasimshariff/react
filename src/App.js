@@ -1,8 +1,9 @@
+import { useState } from "react";
 import Expenses from "./components/expenses/expenses";
 import NewExpense from "./components/newexpense/NewExpense";
 
 function App() {
-  const expenses = [
+  const INITIAL_EXPENSE = [
     {
       id: "e1",
       title: "Toilet Paper",
@@ -24,13 +25,29 @@ function App() {
     },
   ];
 
+  const [expenseList, setExpenseList] = useState(INITIAL_EXPENSE);
+  const [filteredYear, setFilteredYear] = useState("");
+  // const [filteredExpList, setFilteredExpList] = useState(INITIAL_EXPENSE);
+
   const myNewExpense = (expense) => {
     console.log("New expense in App js " + JSON.stringify(expense));
+    setExpenseList((prevState) => [expense, ...prevState]);
+    //  setFilteredExpList(expenseList);
   };
+
+  const filterByYear = (year) => {
+    console.log("year in App js " + year);
+    setFilteredYear(year);
+  };
+
   return (
     <div>
       <NewExpense myNewExpense={myNewExpense}></NewExpense>
-      <Expenses items={expenses}></Expenses>
+      <Expenses
+        items={expenseList}
+        filterChange={filterByYear}
+        selectedYear={filteredYear}
+      ></Expenses>
     </div>
   );
 }
